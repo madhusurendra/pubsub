@@ -5,10 +5,10 @@ const PubSub = require(`@google-cloud/pubsub`);
 const pubsub = new PubSub();
 
 const topicName = 'poc1';
-const data = JSON.stringify({ foo: 'bar' });
+const data = JSON.stringify({ foo: 'kishore' });
+const data1 = JSON.stringify({ foo: 'Sharath' });
 
-const dataBuffer = Buffer.from(data);
-
+let dataBuffer = Buffer.from(data);
 pubsub
     .topic(topicName)
     .publisher()
@@ -18,3 +18,17 @@ pubsub
     .catch(err => {
         console.error('ERROR:', err);
     });
+
+
+dataBuffer = Buffer.from(data1);
+pubsub
+    .topic(topicName)
+    .publisher()
+    .publish(dataBuffer).then(messageId => {
+        console.log(`Message ${messageId} published.`);
+    })
+    .catch(err => {
+        console.error('ERROR:', err);
+    });
+
+
